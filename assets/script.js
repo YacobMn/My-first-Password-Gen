@@ -7,55 +7,75 @@ var finalPassword= "";
 var limitPasswordLength;
 var numberEnter=12;
 var passwordLength;
-var upperCase;
-var includeNumbers;
-var specialCharacters;
-var lowerCase;
-var randomNumber;
-var number;
+var addUpperCase;
+var addNumbers;
+var addSpecialCharacters;
+var addLowerCase;
+var randomNumber="";
+var numbers;
 
 //characters arrays
-var addSpecialCharacters = ['!', '@', '#', '$', '%', '&'];
-var numbersEnter = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
-var includeUpperCase = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-var includeLowerCase = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-var allChar = addSpecialCharacters + includeNumbers + upperCase + lowerCase;
+var specialCharacters = ['!', '@', '#', '$', '%', '&'];
+var numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
+var upperCase = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+var lowerCase = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
 // randon number generator
-function randomNumber(){
-  var randomNumber = Math.floor(math.random() * 10);
-  return;
+function getARandomNumber(listLength){
+  var randomNumber = Math.floor(Math.random() * listLength);
+  return randomNumber
 }
 
 // If conditions
 
-function passWordLength(limitPasswordLength) {
-  limitPasswordLength = (passWordLength >= 12 && passWordLength >= 128);
-  return; 
-} if (numberEnter < 12 && numberEnter > 128) {
-  console.log("invalide Entery Number");
+function limitPasswordLength() {
+  if (passwordLength < 12 && passwordLength > 128) {
+   alert("invalide Entery Number");
 }
 else if(numberEnter > 12 && numberEnter < 128) {
-  console.log("Good number choice!!");
+  alert("Good number choice!!");
 }
+ // limitPasswordLength = (passwordLength >= 12 && passwordLength <= 128);
+  //return; 
+} 
 
 
 
 // password generator;
 function generatePassword(){
   passwordLength = prompt("whats the password length?")
-  numberEnter = confirm("do you want to include numbers?")
+  addNumbers = confirm("do you want to include numbers?")
   addSpecialCharacters = confirm("do you want to include special characters?")
-  upperCase = confirm(" do you want to include uppercase?")
-  lowerCase = confirm(" do you want to include lowercase?")
+  addUpperCase = confirm(" do you want to include uppercase?")
+  addLowerCase = confirm(" do you want to include lowercase?")
 
-  var passwordLength = limitPasswordLength();
-  var upperCase = includeUpperCase();
-  var lowerCase = includeLowerCase();
-  var numbers = numberEnter();
+   limitPasswordLength();
+  //var upperCase = includeUpperCase();
+  //var lowerCase = includeLowerCase();
+  //var numbers = numberEnter();
+  var allChar = []
+  if(addSpecialCharacters){
+     allChar = allChar.concat (specialCharacters)
+  }
+  if (addNumbers){
+     allChar = allChar.concat (numbers)
+  }
+  if (addUpperCase){
+     allChar = allChar.concat (upperCase)
+  }
+  if (addLowerCase){
+     allChar = allChar.concat (lowerCase)
+  }
+  console.log(allChar);
+
+ var finalPassword =""
+ for(var i=0; i<passwordLength; i++){
+  finalPassword = finalPassword + allChar[getARandomNumber(allChar.length)]
+ }
+
   
-  finalPassword =  includeLowerCase + includeNumbers + includeUpperCase + randomNumber;
-  finalPassword();
+  console.log(finalPassword)
+  return finalPassword
 }
 
 
@@ -63,7 +83,7 @@ function generatePassword(){
 function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
-  passwordText.value = passowrd;
+  passwordText.value = password;
 
 }
 
